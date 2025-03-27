@@ -71,7 +71,6 @@ let templates = []
 export const createAllNumberTemplates = () => {
     templates = []
     createAllTemplates([])
-    console.log(templates.length)
     return [
         {name: "ones", templates: templates},
         {name: "twos", templates: templates},
