@@ -5,7 +5,75 @@ const solvePuzzle = (clueLayout) => {
     const numberTemplatesArr = createAllNumberTemplates()
     const possibleTemplates = checkClues(clueTemplate, numberTemplatesArr)
     const solution = comparePossibilitiesIntoSolution(possibleTemplates)
-    console.log(solution)
+    return convertSolutionIntoDisplay(solution)
+}
+
+const convertSolutionIntoDisplay = (solution) => {
+    const layout = [
+        [null,null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null,null]
+    ]
+
+    solution.forEach(currSolutionObj => {
+        switch (currSolutionObj.name) {
+            case "ones":
+                currSolutionObj.templates.forEach((col,row) => {
+                    layout[row][col] = 1
+                })
+                break;
+            case "twos":
+                currSolutionObj.templates.forEach((col,row) => {
+                    layout[row][col] = 2
+                })
+                break;
+            case "threes":
+                currSolutionObj.templates.forEach((col,row) => {
+                    layout[row][col] = 3
+                })
+                break;
+            case "fours":
+                currSolutionObj.templates.forEach((col,row) => {
+                    layout[row][col] = 4
+                })
+                break;
+            case "fives":
+                currSolutionObj.templates.forEach((col,row) => {
+                    layout[row][col] = 5
+                })
+                break;
+            case "sixes":
+                currSolutionObj.templates.forEach((col,row) => {
+                    layout[row][col] = 6
+                })
+                break;
+            case "sevens":
+                currSolutionObj.templates.forEach((col,row) => {
+                    layout[row][col] = 7
+                })
+                break;
+            case "eights":
+                currSolutionObj.templates.forEach((col,row) => {
+                    layout[row][col] = 8
+                })
+                break;
+            case "nines":
+                currSolutionObj.templates.forEach((col,row) => {
+                    layout[row][col] = 9
+                })
+                break;
+            default:    
+        }
+    })
+
+    return layout
+
 }
 
 const checkClues = (clueTemplate,numberTemplatesArr) => {
@@ -35,6 +103,7 @@ const checkClues = (clueTemplate,numberTemplatesArr) => {
 }
 
 const comparePossibilitiesIntoSolution = (possibleNumberTemplates) => {
+    // possibleeNumberTemplates is an array of {name: number, templates: arr of }
     possibleNumberTemplates = possibleNumberTemplates.sort((a,b) => a.templates.length - b.templates.length)
 
     let solutions = []
@@ -44,39 +113,31 @@ const comparePossibilitiesIntoSolution = (possibleNumberTemplates) => {
         solutions.push([{name: possibleNumberTemplates[0].name,templates: possibleTemplate}])
     })
 
-    console.log(solutions)
-
     for(let i = 1; i < possibleNumberTemplates.length; i++){
         possibleNumberTemplates[i].templates.forEach(template => {
             solutions.forEach(solution => {
                 let conflicts = conflictLogic(solution,template)
                 if(!conflicts){
-                    nextGenSolutions.push([[...solution, {name: possibleNumberTemplates[i].name, templates: template}]])
+                    nextGenSolutions.push([...solution, {name: possibleNumberTemplates[i].name, templates: template}])
                 }
             })
         })
-        solutions = [nextGenSolutions]
+        solutions = [...nextGenSolutions]
         nextGenSolutions = []
     }
 
-    return solutions
+    return solutions[0]
 }
 
 const conflictLogic = (solution, incomingTemplate) => {
-    //  solution is an array of {name: string, template: arr[positions]}
-    // template is an arr[positions]
-
-        solution.forEach(solutionTemplate => {
-            for(let i = 0; i < incomingTemplate.length; i++){
-                console.log(solutionTemplate.templates[i] + "===" + incomingTemplate[i])
-                if(solutionTemplate.templates[i] === incomingTemplate[i]){
-                    console.log("conflict")
-                    return true
-                }
+    for (let solutionTemplate of solution) {
+        for (let i = 0; i < incomingTemplate.length; i++) {
+            if (solutionTemplate.templates[i] === incomingTemplate[i]) {
+                return true; // Conflict found
             }
-        })
-
-    return false
-}
+        }
+    }
+    return false; // No conflicts
+};
 
 export {solvePuzzle}

@@ -6,6 +6,9 @@ import Cell from "@/components/cell";
 import NumberSelector from "@/components/number-selector"
 import { useState } from "react";
 import SolveButton from "@/components/solve-button";
+import ClearButton from "@/components/clear-button";
+
+const createEmptyLayout = () => Array.from({ length: 9 }, () => Array(9).fill(null));
 
 export default function Home() {
 
@@ -17,16 +20,20 @@ export default function Home() {
     setClue([...clue])
   }
 
-  const TESTDISPLAYCLUES = () => {
+  const solveThePuzzle = () => {
     
-    solvePuzzle(clue)
+    const solution = solvePuzzle(clue)
+    setClue(solution)
+  }
 
+  const clearThePuzzle = () => {
+    setClue(createEmptyLayout())
   }
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-5xl my-12">Sudoku Solver</h1>
-      <div className="h-[70vh] flex flex-col justify-between items-center">
+      <h1 className="text-5xl my-8">Sudoku Solver</h1>
+      <div className="h-[80vh] flex flex-col justify-between items-center">
         <div className="bg-black grid grid-cols-9 gap-1">
           {clue.map((row, rowIndex)=> row.map((col,colIndex) => {
             return <Cell rowIndex={rowIndex} colIndex={colIndex} editClue={editClue} pos={[rowIndex, colIndex]} key={`${rowIndex}-${colIndex}`}>{col}</Cell>
@@ -44,7 +51,8 @@ export default function Home() {
           <NumberSelector setCurrNumber={setCurrNumber}>8</NumberSelector>
           <NumberSelector setCurrNumber={setCurrNumber}>9</NumberSelector>
         </div>
-        <SolveButton TESTDISPLAYCLUES={TESTDISPLAYCLUES}/>
+        <SolveButton solveThePuzzle={solveThePuzzle}/>
+        <ClearButton clearThePuzzle={clearThePuzzle}/>
       </div>
     </div>
   );
