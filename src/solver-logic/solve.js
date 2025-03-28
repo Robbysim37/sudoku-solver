@@ -34,29 +34,49 @@ const checkClues = (clueTemplate,numberTemplatesArr) => {
     return numberTemplatesArr
 }
 
-const comparePossibilitiesIntoSolution = (possibleTemplates) => {
-    possibleTemplates = possibleTemplates.sort((a,b) => b.templates.length - a.templates.length)
+const comparePossibilitiesIntoSolution = (possibleNumberTemplates) => {
+    possibleNumberTemplates = possibleNumberTemplates.sort((a,b) => a.templates.length - b.templates.length)
 
-    console.log(possibleTemplates)
+    let solutions = []
+    let nextGenSolutions = []
 
-    const solutions = possibleTemplates[0].templates
+    possibleNumberTemplates[0].templates.forEach(possibleTemplate => {
+        solutions.push([{name: possibleNumberTemplates[0].name,templates: possibleTemplate}])
+    })
 
-    for(let i = 1 ; i < possibleTemplates.length ; i++){
-        solutions.filter(currSolutionTemplate => {
-            let isValid = true
-            possibleTemplates[i].templates.forEach(currPossibleTemplate => {
-                currPossibleTemplate.forEach((col,row) => {
-                    if(currSolutionTemplate[row] === col){
-                        isValid = false
-                    }
-                })
+    console.log(solutions)
+
+    for(let i = 1; i < possibleNumberTemplates.length; i++){
+        possibleNumberTemplates[i].templates.forEach(template => {
+            solutions.forEach(solution => {
+                let conflicts = conflictLogic(solution,template)
+                if(!conflicts){
+                    nextGenSolutions.push([[...solution, {name: possibleNumberTemplates[i].name, templates: template}]])
+                }
             })
-
-            return isValid
         })
+        solutions = [nextGenSolutions]
+        nextGenSolutions = []
     }
 
     return solutions
+}
+
+const conflictLogic = (solution, incomingTemplate) => {
+    //  solution is an array of {name: string, template: arr[positions]}
+    // template is an arr[positions]
+
+        solution.forEach(solutionTemplate => {
+            for(let i = 0; i < incomingTemplate.length; i++){
+                console.log(solutionTemplate.templates[i] + "===" + incomingTemplate[i])
+                if(solutionTemplate.templates[i] === incomingTemplate[i]){
+                    console.log("conflict")
+                    return true
+                }
+            }
+        })
+
+    return false
 }
 
 export {solvePuzzle}
