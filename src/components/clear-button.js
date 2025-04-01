@@ -4,7 +4,7 @@ const ClearButton = (props) => {
         props.clearThePuzzle()
     }
 
-    return <div onClick={clear} className="bg-gray-700 w-1/3 flex justify-center items-center text-3xl outline-1 outline-black">
+    return <div onClick={clear} className="select-none bg-gray-700 w-1/3 flex justify-center items-center text-3xl outline-1 outline-black">
         <p className="m-4">Clear</p>
 </div>
 }
