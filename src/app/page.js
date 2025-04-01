@@ -63,8 +63,10 @@ export default function Home() {
           <NumberSelector setCurrNumber={setCurrNumber}>8</NumberSelector>
           <NumberSelector setCurrNumber={setCurrNumber}>9</NumberSelector>
         </div>
+        <div className="flex justify-around w-full">
         <SolveButton solveThePuzzle={solveThePuzzle}/>
         <ClearButton clearThePuzzle={clearThePuzzle}/>
+        </div>
       </div>
     </div>
   );
