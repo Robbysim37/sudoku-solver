@@ -52,16 +52,16 @@ export default function Home() {
   </div>
       </div>
         <div className="grid grid-cols-5 gap-2 h-1/5 w-full">
-          <NumberSelector setCurrNumber={setCurrNumber}>{null}</NumberSelector>
-          <NumberSelector setCurrNumber={setCurrNumber}>1</NumberSelector>
-          <NumberSelector setCurrNumber={setCurrNumber}>2</NumberSelector>
-          <NumberSelector setCurrNumber={setCurrNumber}>3</NumberSelector>
-          <NumberSelector setCurrNumber={setCurrNumber}>4</NumberSelector>
-          <NumberSelector setCurrNumber={setCurrNumber}>5</NumberSelector>
-          <NumberSelector setCurrNumber={setCurrNumber}>6</NumberSelector>
-          <NumberSelector setCurrNumber={setCurrNumber}>7</NumberSelector>
-          <NumberSelector setCurrNumber={setCurrNumber}>8</NumberSelector>
-          <NumberSelector setCurrNumber={setCurrNumber}>9</NumberSelector>
+          <NumberSelector currNumber={currNumber} setCurrNumber={setCurrNumber}>{null}</NumberSelector>
+          <NumberSelector currNumber={currNumber} setCurrNumber={setCurrNumber}>1</NumberSelector>
+          <NumberSelector currNumber={currNumber} setCurrNumber={setCurrNumber}>2</NumberSelector>
+          <NumberSelector currNumber={currNumber} setCurrNumber={setCurrNumber}>3</NumberSelector>
+          <NumberSelector currNumber={currNumber} setCurrNumber={setCurrNumber}>4</NumberSelector>
+          <NumberSelector currNumber={currNumber} setCurrNumber={setCurrNumber}>5</NumberSelector>
+          <NumberSelector currNumber={currNumber} setCurrNumber={setCurrNumber}>6</NumberSelector>
+          <NumberSelector currNumber={currNumber} setCurrNumber={setCurrNumber}>7</NumberSelector>
+          <NumberSelector currNumber={currNumber} setCurrNumber={setCurrNumber}>8</NumberSelector>
+          <NumberSelector currNumber={currNumber} setCurrNumber={setCurrNumber}>9</NumberSelector>
         </div>
         <div className="flex justify-around w-full">
         <SolveButton solveThePuzzle={solveThePuzzle}/>
