@@ -34,11 +34,23 @@ export default function Home() {
     <div className="flex flex-col items-center">
       <h1 className="text-5xl my-8">Sudoku Solver</h1>
       <div className="h-[80vh] flex flex-col justify-between items-center">
-        <div className="bg-black grid grid-cols-9 gap-1">
-          {clue.map((row, rowIndex)=> row.map((col,colIndex) => {
-            return <Cell rowIndex={rowIndex} colIndex={colIndex} editClue={editClue} pos={[rowIndex, colIndex]} key={`${rowIndex}-${colIndex}`}>{col}</Cell>
-          }))}
-        </div>
+      <div className="w-full overflow-x-hidden">
+        <div className="bg-black grid mx-auto gap-x-[0.25rem] gap-y-[0.25rem]"
+          style={{ gridTemplateColumns: `repeat(${clue[0].length}, min-content)`}}>
+          {clue.map((row, rowIndex) =>
+            row.map((cell, colIndex) => (
+              <Cell
+              key={`${rowIndex}-${colIndex}`}
+              rowIndex={rowIndex}
+              colIndex={colIndex}
+              rowLength={row.length}
+              editClue={editClue}
+              >{cell}
+        </Cell>
+      ))
+    )}
+  </div>
+      </div>
         <div className="grid grid-cols-5 gap-2 h-1/5 w-full">
           <NumberSelector setCurrNumber={setCurrNumber}>{null}</NumberSelector>
           <NumberSelector setCurrNumber={setCurrNumber}>1</NumberSelector>
